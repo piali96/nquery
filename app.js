@@ -26,7 +26,7 @@ app.use(passport.session());
 require('./app/routes/auth.routes.js')(app);
 
 
-app.listen(port = process.env.PORT || 8000,()=>{
+app.listen(port = process.env.PORT || 5000,()=>{
     console.log(`Listening on port ${port}`);
 });
 
