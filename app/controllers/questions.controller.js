@@ -4,27 +4,33 @@ var Question = require("../models/question");
 exports.addQuestion = async function(req,res,next){
     var email = req.user.email;
     var t_question = req.body.question;
+    var t_option1 = req.body.option1;
+    var t_option2 = req.body.option2;
+    var t_option3 = req.body.option3;
+    var t_option4 = req.body.option4;
+    var t_correctOption = req.body.correctOption;
+
     console.log(email);
-    if(!t_task){
-        return res.status(422).send({error: 'Task not entered'});
+    if(!t_question){
+        return res.status(422).send({error: 'Question not entered'});
     }
     var user = await User.findOne({email:email});
     if(user){
-        var userJSON = new Schedule({
+        var userJSON = new Question({
             studentID : user['_id'],
             question : t_question,
             option1 : t_option1,
             option2 : t_option2,
             option3 : t_option3,
             option4 : t_option4,
-            answer : t_answer
+            correctOption : t_correctOption
         });
         try{
             await userJSON.save();
         }catch(err){
             return res.status(422).send({error: err});
         }
-        try{
+       try{
             await user.save();
         }catch(err){
             return res.status(422).send({error: err});
@@ -36,8 +42,12 @@ exports.addQuestion = async function(req,res,next){
         return res.status(422).send({error: 'No such user found'});
     }
 }
+exports.getQuestions = async function(req, res, next){
+    var questions = await Question.find();
+    return res.status(201).send(questions);
+}
 
-exports.getTasks = async function(req,res,next){
+/*exports.getTasks = async function(req,res,next){
     var email = req.user.email;
     //var day = req.params.day;
     var month = req.params.month;
@@ -134,4 +144,4 @@ exports.deleteTask = async function(req,res,next){
     else{
         return res.status(422).send({error: 'No such user found'});
     }
-}
+}*/

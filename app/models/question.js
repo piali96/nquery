@@ -1,11 +1,5 @@
 var mongoose = require('mongoose');
 
-var optionJSON = {
-    option : String,
-    correct: Boolean,
-    number : Number 
-}
-
 var questionJSON = new mongoose.Schema({
     studentID: {
         type: mongoose.Schema.Types.ObjectId,
@@ -15,7 +9,26 @@ var questionJSON = new mongoose.Schema({
         type: String,
         required: true
     },
-    options : [optionJSON]
+    option1 : {
+        type: String,
+        required: true
+    },
+    option2 : {
+        type: String,
+        required: true
+    },
+    option3 : {
+        type: String,
+        required: true
+    },
+    option4 : {
+        type: String,
+        required: true
+    },
+    correctOption : {
+        type: Number,
+        required: true
+    } 
 
 });
 var questionSchema = questionJSON;

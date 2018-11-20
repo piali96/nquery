@@ -24,9 +24,12 @@ app.use(passport.session());
 
 //  Add all .routes.js files you write here in such a manner
 require('./app/routes/auth.routes.js')(app);
+require('./app/routes/questions.routes.js')(app);
 
 
-app.listen(port = process.env.PORT || 5000,()=>{
+
+
+app.listen(port = process.env.PORT || 8000,()=>{
     console.log(`Listening on port ${port}`);
 });
 
