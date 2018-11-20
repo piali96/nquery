@@ -1,1 +1,1 @@
-#nquery
+NQUERY
