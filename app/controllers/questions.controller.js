@@ -62,7 +62,7 @@ exports.updateQuestion = async function(req,res,next){
     var user = await User.findOne({email:email});
     if(user){
         var dirtyTask = await Question.findOne({studentID:user['_id'],_id:t_id});
-        if(t_task){
+        if(t_question){
             dirtyTask['question'] = t_question;
         }
         if(t_option1){

@@ -44,7 +44,7 @@ module.exports = function(passport){
     });
 
     var jwtOptions = {
-        jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
+        jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'),
         secretOrKey: config.secret
     };
      
