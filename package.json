@@ -1,30 +1,29 @@
 {
-  "name": "nquery",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
-  "dependencies": {
-    "async-csv": "^2.0.0",
-    "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.18.3",
-    "circular-json": "^0.5.7",
-    "cookie-parser": "~1.4.3",
-    "cors": "^2.8.5",
-    "csv-array": "0.0.22",
-    "csv-load-sync": "^1.0.0",
-    "csv-reader": "^1.0.3",
-    "ejs": "~2.5.7",
-    "express": "^4.16.4",
-    "http-errors": "~1.6.2",
-    "jsonwebtoken": "^7.4.3",
-    "lregression": "^1.0.0",
-    "mongoose": "^5.2.16",
-    "morgan": "~1.9.0",
-    "nodemon": "^1.18.4",
-    "passport": "^0.3.2",
-    "passport-jwt": "^2.2.1",
-    "passport-local": "^1.0.0",
+    "name": "nquery",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+      "start": "node app.js"
+    },
+    "dependencies": {
+      "async-csv": "^2.0.0",
+      "bcrypt-nodejs": "0.0.3",
+      "body-parser": "^1.18.3",
+      "circular-json": "^0.5.7",
+      "cors": "^2.8.4",
+      "csv-array": "0.0.22",
+      "csv-load-sync": "^1.0.0",
+      "csv-reader": "^1.0.3",
+      "ejs": "^2.6.1",
+      "express": "^4.16.3",
+      "jsonwebtoken": "^7.4.3",
+      "lregression": "^1.0.0",
+      "mongoose": "^5.2.16",
+      "morgan": "^1.9.1",
+      "nodemon": "^1.18.4",
+      "passport": "^0.3.2",
+      "passport-jwt": "^2.2.1",
+      "passport-local": "^1.0.0"
+    }
   }
-}
+  
