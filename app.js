@@ -10,6 +10,13 @@ require('./config/passport.js')(passport);
 mongoose.Promise = global.Promise;
 var databaseConfig = require('./config/database');
 // var router = require('./app/routes');
+
+//Stuff for chatbot
+var Pusher = require('pusher');
+require('dotenv').config();
+var shortId = require('shortid');
+var dialogFlow = require('dialogflow')
+
  
 mongoose.connect(databaseConfig.url,{ useNewUrlParser: true });
  
@@ -22,7 +29,41 @@ app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 
-//  Add all .routes.js files you write here in such a manner
+//Chatbot Stuff
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+var pusher = new Pusher({
+  appId: '655545',
+  key: '15e3ba0ca4b906df2c44',
+  secret: '8595fd90b3334215ae58',
+  cluster: 'ap2',
+  encrypted: true
+});
+app.post('/message', async (req, res) => {
+  // simulate actual db save with id and createdAt added
+  console.log(req.body);
+  const chat = {
+    ...req.body,
+    id: shortId.generate(),
+    createdAt: new Date().toISOString()
+  } 
+  //update pusher listeners
+  pusher.trigger('chat-bot', 'chat', chat)
+
+  const message = chat.message;
+  const response = await dialogFlow.send(message);
+  // trigger this update to our pushers listeners
+  pusher.trigger('chat-bot', 'chat', {
+    message: `${response.data.result.fulfillment.speech}`,
+    type : 'bot',
+    createdAt : new Date().toISOString(),
+    id: shortId.generate()
+  })
+  res.send(chat)
+})
+
+//  Adding all .routes.js files 
 require('./app/routes/auth.routes.js')(app);
 require('./app/routes/questions.routes.js')(app);
 

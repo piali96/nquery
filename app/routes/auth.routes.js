@@ -23,4 +23,7 @@ module.exports = (app) => {
    app.get('/dummy',function(req,res){
        res.send("Yay")
    })
+  app.get('/message',function(req,res){
+        res.render('../views/test/message');
+  })
 }
