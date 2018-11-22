@@ -11,12 +11,6 @@ mongoose.Promise = global.Promise;
 var databaseConfig = require('./config/database');
 // var router = require('./app/routes');
 
-//Stuff for chatbot
-var Pusher = require('pusher');
-require('dotenv').config();
-var shortId = require('shortid');
-var dialogFlow = require('dialogflow')
-
  
 mongoose.connect(databaseConfig.url,{ useNewUrlParser: true });
  
@@ -30,16 +24,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Chatbot Stuff
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
-var pusher = new Pusher({
-  appId: '655545',
-  key: '15e3ba0ca4b906df2c44',
-  secret: '8595fd90b3334215ae58',
-  cluster: 'ap2',
-  encrypted: true
-});
 
 
 //  Adding all .routes.js files 

@@ -2,10 +2,21 @@ var authController = require('../controllers/auth.controller'),
     express = require('express'),
     passportService = require('../../config/auth');
     passport = require('passport');
+    var bodyParser = require('body-parser');
     var Pusher = require('pusher');
     require('dotenv').config();
     var shortId = require('shortid');
     var dialogFlow = require('dialogflow')
+    app.use(bodyParser.urlencoded({ extended: false }))
+    app.use(bodyParser.json())
+    
+    var pusher = new Pusher({
+      appId: '655545',
+      key: '15e3ba0ca4b906df2c44',
+      secret: '8595fd90b3334215ae58',
+      cluster: 'ap2',
+      encrypted: true
+    });
 
 var requireAuth = passport.authenticate('jwt',{session: false});
 var requireLogin = passport.authenticate('local', {session:false});
@@ -15,7 +26,7 @@ module.exports = (app) => {
    app.post('/message', async (req, res) => {
     // simulate actual db save with id and createdAt added
     console.log(req.body);
-    const chat = {
+    var chat = {
       ...req.body,
       id: shortId.generate(),
       createdAt: new Date().toISOString()
@@ -23,8 +34,8 @@ module.exports = (app) => {
     //update pusher listeners
     pusher.trigger('chat-bot', 'chat', chat)
   
-    const message = chat.message;
-    const response = await dialogFlow.send(message);
+    var message = chat.message;
+    var response = await dialogFlow.send(message);
     // trigger this update to our pushers listeners
     pusher.trigger('chat-bot', 'chat', {
       message: `${response.data.result.fulfillment.speech}`,
