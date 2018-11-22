@@ -2,12 +2,38 @@ var authController = require('../controllers/auth.controller'),
     express = require('express'),
     passportService = require('../../config/auth');
     passport = require('passport');
+    var Pusher = require('pusher');
+    require('dotenv').config();
+    var shortId = require('shortid');
+    var dialogFlow = require('dialogflow')
 
 var requireAuth = passport.authenticate('jwt',{session: false});
 var requireLogin = passport.authenticate('local', {session:false});
 module.exports = (app) => {
    app.post('/register',authController.register);
    app.post('/login',requireLogin,authController.login);
+   app.post('/message', async (req, res) => {
+    // simulate actual db save with id and createdAt added
+    console.log(req.body);
+    const chat = {
+      ...req.body,
+      id: shortId.generate(),
+      createdAt: new Date().toISOString()
+    } 
+    //update pusher listeners
+    pusher.trigger('chat-bot', 'chat', chat)
+  
+    const message = chat.message;
+    const response = await dialogFlow.send(message);
+    // trigger this update to our pushers listeners
+    pusher.trigger('chat-bot', 'chat', {
+      message: `${response.data.result.fulfillment.speech}`,
+      type : 'bot',
+      createdAt : new Date().toISOString(),
+      id: shortId.generate()
+    })
+    res.send(chat)
+  })
    app.get('/security', requireAuth, function(req,res){
        res.send({content: "SUCCESS"});
    });

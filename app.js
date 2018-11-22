@@ -40,28 +40,7 @@ var pusher = new Pusher({
   cluster: 'ap2',
   encrypted: true
 });
-app.post('/message', async (req, res) => {
-  // simulate actual db save with id and createdAt added
-  console.log(req.body);
-  const chat = {
-    ...req.body,
-    id: shortId.generate(),
-    createdAt: new Date().toISOString()
-  } 
-  //update pusher listeners
-  pusher.trigger('chat-bot', 'chat', chat)
 
-  const message = chat.message;
-  const response = await dialogFlow.send(message);
-  // trigger this update to our pushers listeners
-  pusher.trigger('chat-bot', 'chat', {
-    message: `${response.data.result.fulfillment.speech}`,
-    type : 'bot',
-    createdAt : new Date().toISOString(),
-    id: shortId.generate()
-  })
-  res.send(chat)
-})
 
 //  Adding all .routes.js files 
 require('./app/routes/auth.routes.js')(app);
