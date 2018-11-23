@@ -11,4 +11,5 @@ module.exports = (app) => {
     app.get('/question/getQuestions',requireAuth,questionsController.getQuestions); //Tested
     app.post('/question/updateQuestion',requireAuth,questionsController.updateQuestion); //Tested
     app.post('/question/deleteQuestion',requireAuth,questionsController.deleteQuestion); //Tested
+    app.get('/question/getMyQuestions',requireAuth,questionsController.getMyQuestions);
 }

@@ -47,6 +47,18 @@ exports.getQuestions = async function(req, res, next){
     return res.status(201).send(questions);
 }
 
+exports.getMyQuestions = async function(req, res, next){
+    var email = req.user.email;
+    if(!email){
+        return res.status(422).send({error: 'Email not entered'});
+    }
+    var user = await User.findOne({email:email});
+    if(user){
+        var questions = await Question.find({studentID:user['_id']});
+    }
+    return res.status(201).send(questions);
+}
+
 exports.updateQuestion = async function(req,res,next){
     var email = req.user.email;
     var t_id = req.body.id;
@@ -114,27 +126,3 @@ exports.deleteQuestion = async function(req, res, next){
     }
 }
 
-/* 
-
-exports.deleteTask = async function(req,res,next){
-    var email = req.user.email;
-    var t_id = req.body.id;
-    console.log(email);
-    console.log(t_id);
-    if(!email || !t_id){
-        return res.status(422).send({error: 'Email | task_id not entered'});
-    }
-    var user = await User.findOne({email:email});
-    if(user){
-        try{
-            await Schedule.findOneAndDelete({studentID:user['_id'],_id:t_id});
-        }catch(err){
-            return res.status(422).send({error: err});
-        }
-        return res.status(200).send({success : true});
-    }
-    else{
-        return res.status(422).send({error: 'No such user found'});
-    }
-}
- */
