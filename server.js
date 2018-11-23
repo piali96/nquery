@@ -4,7 +4,7 @@ const express = require('express')
         const cors = require('cors')
         require('dotenv').config()
         const shortId = require('shortid') 
-        const dialogFlow = require('./dialogFlow')
+        const dialogFlow = require('./dialogflow')
         const app = express()
         app.use(cors())
         app.use(bodyParser.urlencoded({ extended: false }))
@@ -13,7 +13,7 @@ const express = require('express')
           appId: process.env.PUSHER_APP_ID,
           key: process.env.PUSHER_APP_KEY,
           secret: process.env.PUSHER_APP_SECRET,
-          cluster: 'eu',
+          cluster: 'ap2',
           encrypted: true
         })
         app.post('/message', async (req, res) => {
