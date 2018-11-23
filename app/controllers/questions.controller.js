@@ -43,7 +43,14 @@ exports.addQuestion = async function(req,res,next){
     }
 }
 exports.getQuestions = async function(req, res, next){
-    var questions = await Question.find();
+    var email = req.user.email;
+    if(!email){
+        return res.status(422).send({error: 'Email not entered'});
+    }
+    var user = await User.findOne({email:email});
+    if(user){
+        var questions = await Question.find({studentID:{$ne:user['_id']}});
+    }
     return res.status(201).send(questions);
 }
 
