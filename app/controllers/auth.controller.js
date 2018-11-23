@@ -14,7 +14,6 @@ function setInfo(request){
         email: request.email,
     };
 }
- 
 
 exports.login = function(req, res, next){
  
@@ -26,7 +25,8 @@ exports.login = function(req, res, next){
     });
  
 }
- 
+
+
 exports.register = function(req, res, next){
  
     var email = req.body.email;

@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-      "start": "node app.js & node server.js &"
+      "start": "node app.js"
     },
     "dependencies": {
       "async-csv": "^2.0.0",
