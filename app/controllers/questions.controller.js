@@ -110,7 +110,7 @@ exports.deleteQuestion = async function(req, res, next){
     var t_id = req.body.id;
     console.log(t_id);
     if(!email || !t_id){
-        return res.status(422).send({error: 'Email | task_id not entered'});
+        return res.status(422).send({error: 'Email | question_id not entered'});
     }
     var user = await User.findOne({email:email});
     if(user){
